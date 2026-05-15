@@ -1,0 +1,231 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "d61e6cc9-5cf6-4ee6-9e43-5dc6f218da54",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      " 12\n",
+      "Enter choice: 2\n",
+      "Enter val: 10\n",
+      "Enter choice: 1\n",
+      "Enter val: 50\n",
+      "Enter choice: 3\n",
+      "Enter val: 2\n",
+      "Enter pos: 2\n",
+      "Enter choice: 7\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "10\n",
+      "2\n",
+      "50\n",
+      "None\n"
+     ]
+    },
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "Enter choice: 3\n",
+      "Enter val: 30\n",
+      "Enter pos: 3\n",
+      "Enter choice: 3\n",
+      "Enter val: 40\n",
+      "Enter pos: 4\n",
+      "Enter choice: 7\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "10\n",
+      "2\n",
+      "30\n",
+      "40\n",
+      "50\n",
+      "None\n"
+     ]
+    },
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "Enter choice: 4\n",
+      "Enter choice: 5\n",
+      "Enter choice: 7\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2\n",
+      "30\n",
+      "40\n",
+      "None\n"
+     ]
+    },
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "Enter choice: 6\n",
+      "Enter val: 30\n",
+      "Enter choice: 7\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2\n",
+      "40\n",
+      "None\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Node:\n",
+    "    def __init__(self,data):\n",
+    "        self.data=data\n",
+    "        self.next=None\n",
+    "class Linked_List:\n",
+    "    def __init__(self):\n",
+    "        self.head=None\n",
+    "    def insert_end(self,data):\n",
+    "        nn=Node(data)\n",
+    "        t=self.head\n",
+    "        if self.head is None:\n",
+    "            self.head=nn\n",
+    "            return\n",
+    "        while t.next:\n",
+    "            t=t.next\n",
+    "        t.next=nn\n",
+    "    def insert_beg(self,data):\n",
+    "        nn=Node(data)\n",
+    "        nn.next=self.head\n",
+    "        self.head=nn\n",
+    "    def insert_p(self,data,pos):\n",
+    "        nn=Node(data)\n",
+    "        t=self.head\n",
+    "        if pos==1:\n",
+    "            nn.next=self.head\n",
+    "            self.head=nn\n",
+    "            return\n",
+    "        c=1\n",
+    "        while t and c<pos-1:\n",
+    "            c+=1\n",
+    "            t=t.next\n",
+    "        if not t:\n",
+    "            print(\"invalid\")\n",
+    "            return\n",
+    "        nn.next=t.next\n",
+    "        t.next=nn\n",
+    "    def delete_end(self):\n",
+    "        if self.head is None:\n",
+    "            print(\"Empty\")\n",
+    "            return\n",
+    "        t=self.head\n",
+    "        while t.next.next:\n",
+    "            t=t.next\n",
+    "        t.next=None\n",
+    "    def delete_beg(self):\n",
+    "        if self.head is None:\n",
+    "            print(\"empty\")\n",
+    "            return\n",
+    "        self.head=self.head.next\n",
+    "    def delete_v(self,value):\n",
+    "        t=self.head\n",
+    "        prev=None\n",
+    "        if t and t.data==value:\n",
+    "            self.head=t.next\n",
+    "            return\n",
+    "        while t and t.data!=value:\n",
+    "            prev=t\n",
+    "            t=t.next\n",
+    "        if not t:\n",
+    "            print(\"Invalid\")\n",
+    "            return\n",
+    "        prev.next=t.next\n",
+    "    def display(self):\n",
+    "        t=self.head\n",
+    "        while t:\n",
+    "            print(t.data)\n",
+    "            t=t.next\n",
+    "        print(\"None\")\n",
+    "ll=Linked_List()\n",
+    "n=int(input())\n",
+    "for i in range(n):\n",
+    "    ch=int(input(\"Enter choice:\"))\n",
+    "    if ch==1:\n",
+    "        val=int(input(\"Enter val:\"))\n",
+    "        ll.insert_end(val)\n",
+    "    elif ch==2:\n",
+    "        val=int(input(\"Enter val:\"))\n",
+    "        ll.insert_beg(val)\n",
+    "    elif ch==3:\n",
+    "        val=int(input(\"Enter val:\"))\n",
+    "        pos=int(input(\"Enter pos:\"))\n",
+    "        ll.insert_p(val,pos)\n",
+    "    elif ch==4:\n",
+    "        ll.delete_beg()\n",
+    "    elif ch==5:\n",
+    "        ll.delete_end()\n",
+    "    elif ch==6:\n",
+    "        val=int(input(\"Enter val:\"))\n",
+    "        ll.delete_v(val)\n",
+    "    elif ch==7:\n",
+    "        ll.display()\n",
+    "    elif ch==8:\n",
+    "        print(\"Exit\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3f06a6cd-7412-406f-aea7-143159ea7cc8",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "215ae6dd-5ec9-4ecb-9e26-89da74484413",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
